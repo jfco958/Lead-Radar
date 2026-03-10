@@ -51,6 +51,14 @@ export interface MarketAnalysisResponse {
 export async function runMarketAnalysis(
   params: MarketAnalysisParams
 ): Promise<MarketAnalysisResponse> {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error(
+      "ANTHROPIC_API_KEY no está configurada. " +
+      "Copia .env.example a .env y agrega tu clave de API de Anthropic. " +
+      "Puedes obtener una en: https://console.anthropic.com/keys"
+    );
+  }
+
   const { sectors, products, marketContext, numberOfLeads = 8 } = params;
 
   const productNames: Record<string, string> = {

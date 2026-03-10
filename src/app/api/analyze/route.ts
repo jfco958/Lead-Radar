@@ -4,6 +4,18 @@ import { runMarketAnalysis } from "@/lib/claude";
 import type { ProductType } from "@/types";
 
 export async function POST(request: NextRequest) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json(
+      {
+        error:
+          "ANTHROPIC_API_KEY no está configurada. " +
+          "Copia el archivo .env.example a .env y agrega tu clave de API. " +
+          "Obtenla en: https://console.anthropic.com/keys",
+      },
+      { status: 500 }
+    );
+  }
+
   try {
     const body = await request.json() as {
       sectors: string[];
