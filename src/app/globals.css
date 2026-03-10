@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --btg-navy: #0D1B2E;
+  --btg-navy-light: #152338;
+  --btg-navy-card: #1A2B3E;
+  --btg-gold: #F0A500;
+  --btg-text: #E8EDF2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--btg-navy);
+  color: var(--btg-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #152338;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #243447;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2d4562;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(240, 165, 0, 0.3);
+  color: #fff;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--btg-gold);
+  outline-offset: 2px;
+}
+
+/* Radar animation */
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.radar-sweep {
+  animation: radar-sweep 3s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes radar-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.radar-ping {
+  animation: radar-ping 2s ease-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #F0A500, #F5C842);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Gold glow effect */
+.gold-glow {
+  box-shadow: 0 0 20px rgba(240, 165, 0, 0.2);
+}
+
+/* Shimmer loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #1A2B3E 25%,
+    #243447 50%,
+    #1A2B3E 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Pulse dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+/* Number animation */
+.number-animate {
+  transition: all 0.5s ease;
+}
+
+/* Prose styles for analysis text */
+.analysis-prose {
+  line-height: 1.75;
+}
+
+.analysis-prose p {
+  margin-bottom: 1rem;
+  color: #B0C0D0;
+}
+
+.analysis-prose strong {
+  color: #E8EDF2;
+  font-weight: 600;
+}
+
+/* Status pipeline connector */
+.pipeline-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -1rem;
+  width: 1rem;
+  height: 2px;
+  background: linear-gradient(90deg, #243447, transparent);
+}

@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id              String    @id @default(cuid())
+  companyName     String
+  sector          String
+  productType     String    // CREDIT | STRUCTURED_DEBT | PROJECT_FINANCE | GUARANTEE | SPECIAL_SITUATIONS
+  status          String    @default("NEW") // NEW | CONTACTED | IN_ANALYSIS | PROPOSAL | NEGOTIATION | WON | LOST | ON_HOLD
+  priority        String    @default("MEDIUM") // LOW | MEDIUM | HIGH | URGENT
+  description     String    // Opportunity description
+  estimatedAmount Float?
+  currency        String    @default("COP")
+  riskLevel       String    @default("MEDIUM") // LOW | MEDIUM | HIGH
+  rationale       String    // Why this is a good lead for BTG Pactual
+  keyFactors      String    @default("[]") // JSON array
+  contactName     String?
+  contactEmail    String?
+  contactPhone    String?
+  contactRole     String?
+  assignedTo      String?
+  analysisId      String?
+  source          String    @default("MANUAL") // MANUAL | AI_GENERATED
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  notes           Note[]
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  leadId    String
+  content   String
+  author    String   @default("Usuario")
+  type      String   @default("NOTE") // NOTE | CALL | EMAIL | MEETING | STATUS_CHANGE
+  createdAt DateTime @default(now())
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+}
+
+model Analysis {
+  id             String   @id @default(cuid())
+  sectors        String   // JSON array of sectors analyzed
+  products       String   // JSON array of product types
+  marketContext  String   // User-provided context / query
+  fullAnalysis   String   // Full text analysis from Claude
+  leadsGenerated Int      @default(0)
+  totalAmount    Float    @default(0)
+  createdAt      DateTime @default(now())
+}
